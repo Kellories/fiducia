@@ -42,6 +42,7 @@ const UserLogin = ({navigation}) => {
                         .then((userCredential) => {
                             const user = userCredential.user
                             console.log(user)
+                            navigation.navigate("AppTabs")
                         })
                         .catch((error) => {
                             console.log(error.code)
