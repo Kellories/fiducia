@@ -20,6 +20,7 @@ const UserLogin = ({navigation}) => {
 
     return (
         <SafeAreaView style={globalStyles.container}>
+
          
           
         
@@ -46,6 +47,7 @@ const UserLogin = ({navigation}) => {
                             .then((userCredential) => {
                                 const user = userCredential.user
                                 console.log(user)
+                                navigation.navigate("AppTabs")
                             })
                             .catch((error) => {
                                 console.log(error.code)
@@ -64,6 +66,7 @@ const UserLogin = ({navigation}) => {
                 <Pressable onPress={() => { navigation.navigate('userRegister') }}
                     style={globalStyles.RegisterButton}>
                 <Text style={globalStyles.GetStartedText}>Sign up</Text>
+
                 </Pressable>
             </View>
 
