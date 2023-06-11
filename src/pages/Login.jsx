@@ -9,7 +9,7 @@ import app from "../api/fireabaseConfig";
 
 const Stack = createNativeStackNavigator()
 
-const UserLogin = () => {
+const UserLogin = ({navigation}) => {
     const auth = getAuth()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
@@ -39,7 +39,7 @@ const UserLogin = () => {
         </SafeAreaView>
     )
 }
-const UserSignup = () =>{
+const UserSignup = ({navigation}) =>{
     const auth = getAuth()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
@@ -48,6 +48,7 @@ const UserSignup = () =>{
         <SafeAreaView>
             <TextInput placeholder = "Email" onChangeText={(e)=>{setEmail(e)}}/>
             <TextInput placeholder="Password" onChangeText= {(e)=>(setPassword(e))}/>
+            <Pressable onPress={()=>{navigation.navigate('userLogin')}}><Text>Already a User?</Text></Pressable>
             <Pressable onPress={()=>{
                 console.log(email,password)
 
