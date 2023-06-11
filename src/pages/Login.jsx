@@ -20,44 +20,53 @@ const UserLogin = ({navigation}) => {
 
     return (
         <SafeAreaView style={globalStyles.container}>
+         
+          
+        
+            <View style = {globalStyles.loginContainer}>
+             <Text style = {globalStyles.login_Title}>Login</Text>
+                <View style={globalStyles.login_Container}>
+                    <View style={globalStyles.userInput}>
+                        <Text style = {globalStyles.userInputText}>Email</Text>
+                        <TextInput
+                        placeholderTextColor="#6966FF"
+                        onChangeText={(e) => { setEmail(e) }} />
+                    </View>    
+                    <View style = {globalStyles.userInput}>
+                        <Text style = {globalStyles.userInputText}>Password</Text>
+                        <TextInput 
+                        placeholderTextColor="#6966FF"
+                        onChangeText={(e) => (setPassword(e))} />
+                    </View>
+                    
+                    <Pressable onPress={() => {
+                        console.log(email, password)
 
-            <Text style={globalStyles.login_Title}>Login</Text>
+                        signInWithEmailAndPassword(auth, email, password)
+                            .then((userCredential) => {
+                                const user = userCredential.user
+                                console.log(user)
+                            })
+                            .catch((error) => {
+                                console.log(error.code)
+                                console.log(error.message)
+                            })
 
-            <View style={globalStyles.login_Container}>
+                    }}
+                        style={globalStyles.LoginButton}>
+                        <Text style={globalStyles.LoginText}> Login </Text>
+                    </Pressable>
+                </View>
 
-                <TextInput style={globalStyles.userInput_email}
-                    placeholder="Email"
-                    placeholderTextColor="#818589"
-                    onChangeText={(e) => { setEmail(e) }} />
 
-                <TextInput style={globalStyles.userInput_password}
-                    placeholder="Password"
-                    placeholderTextColor="#818589"
-                    onChangeText={(e) => (setPassword(e))} />
-
-                <Pressable onPress={() => {
-                    console.log(email, password)
-
-                    signInWithEmailAndPassword(auth, email, password)
-                        .then((userCredential) => {
-                            const user = userCredential.user
-                            console.log(user)
-                        })
-                        .catch((error) => {
-                            console.log(error.code)
-                            console.log(error.message)
-                        })
-
-                }}
-                    style={globalStyles.LoginButton}>
-                    <Text style={globalStyles.LoginText}> Login </Text>
+                    
+                <Text style = {globalStyles.register_text}>Don't have an account?</Text>
+                <Pressable onPress={() => { navigation.navigate('userRegister') }}
+                    style={globalStyles.RegisterButton}>
+                <Text style={globalStyles.GetStartedText}>Sign up</Text>
                 </Pressable>
             </View>
-            <Text>Don't have an account?</Text>
 
-            <Pressable onPress={() => { navigation.navigate('userRegister') }}
-                style={globalStyles.RegisterButton}>
-                <Text style={globalStyles.GetStartedText}>Sign up</Text></Pressable>
 
         </SafeAreaView>
     )
