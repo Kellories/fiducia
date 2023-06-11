@@ -4,12 +4,15 @@ import LoginButton from "../components/LoginButton";
 import globalStyles from "../styles/globalStyles";
 import {getAuth,signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import app from "../api/fireabaseConfig";
+
+
+import { doc, setDoc } from "@firebase/firestore";
+const db = require('../api/fireabaseConfig')
 
 
 const Stack = createNativeStackNavigator()
 
-const UserLogin = () => {
+const UserLogin = ({navigation}) => {
     const auth = getAuth()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
@@ -39,13 +42,15 @@ const UserLogin = () => {
         </SafeAreaView>
     )
 }
-const UserSignup = () =>{
+const UserSignup = ({navigation}) =>{
     const auth = getAuth()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [username,setUsername] = useState('')
 
     return(
         <SafeAreaView>
+            <TextInput placeholder = "Username" onChangeText={(e)=>setUsername(e)}/>
             <TextInput placeholder = "Email" onChangeText={(e)=>{setEmail(e)}}/>
             <TextInput placeholder="Password" onChangeText= {(e)=>(setPassword(e))}/>
             <Pressable onPress={()=>{
@@ -53,8 +58,22 @@ const UserSignup = () =>{
 
                 createUserWithEmailAndPassword(auth,email,password)
                 .then(()=>{
-                   alert('Account Created!' , "Please Log In!")
-                    navigation.navigate('userLogin')
+
+                    const docRef = doc(db,'users',auth.currentUser.email)
+                    data = {
+                        'username': username
+                    }
+                    setDoc(docRef,data)
+                    .then(()=>{
+                        console.log("Successfully registered!")
+                        alert("User created! Please Login!")
+                        navigation.navigate('userLogin')
+                    })
+                    .catch((error)=>{
+                        console.log(error)
+                    })
+
+                   
                 })
                 .catch((error)=>{
                     console.log(error.code)
