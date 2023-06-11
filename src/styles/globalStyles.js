@@ -1,51 +1,61 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 
 const globalStyles = StyleSheet.create({
     
     container:{
         flex:1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 3000,
-        BackgroundColor:'#FFFFFF'
+        backgroundColor:'white',
+        padding:8,
+        margin:'auto'
     },
-    
+    loginContainer:{
+        flex:1,
+        alignContent:'center',
+        justifyContent:'center',
+        flexDirection:'column',
+        width: Dimensions.get('window').width
+
+        
+    },
     login_Container:{
-        marginBottom: 10,
+        alignSelf:'center',
+        justifyContent:'space-evenly',
+        alignItems:'center',
         backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width:'80%',
+        height:'60%',
         borderRadius: 20,
-        borderColor: '#CED0ED',
-        height: 400,
-        width: 320,
         shadowColor: 'rgba(0, 0, 0, 0.1)',
         shadowOpacity: 1.8,
         shadowRadius: 15 ,
         shadowOffset : { width: 1, height: 13},
 
+
     },
-    userInput_email: {
-        backgroundColor: 'white',
-        borderRadius: 20,
-        marginBottom: 20,
-        height: 45,
-        width: 255,
-        fontSize: 16,
-        paddingLeft: 20,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOpacity: 1.8,
-        shadowRadius: 15 ,
-        shadowOffset : { width: 1, height: 13},
+    userInput: {
+       marginTop:'10%',
+       width: '90%',
+       textAlignVertical:'center',
+       borderBottomWidth:3,
+       borderBottomColor:'#6966FF',
+    },
+    userInputText:{
+        color: '#6966FF',
+        fontSize:18,
+       
     },
     login_Title:{
         fontSize: 30,
         color: '#6966FF',
         fontWeight: 'bold',
-        marginBottom: 30,
-        marginRight: 225,
-    
+        left:'10%',
+        bottom:'3%'
+        
+    },
+    register_text : {
+        alignSelf:'center',
+        top:'3%'
     },
 
 
@@ -53,10 +63,8 @@ const globalStyles = StyleSheet.create({
     LoginButton:{ 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 55,
-        width: 270,
-        paddingTop: 5,
-        paddingBottom: 5,
+        height:'10%',
+        width:"90%",
         backgroundColor: '#6966FF',
         borderRadius: 25,
         shadowColor: '#6966FF',
@@ -71,13 +79,12 @@ const globalStyles = StyleSheet.create({
     },
     // Sign up button in Login Page
     RegisterButton: {
+        alignSelf:'center',
+        marginTop:50,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 55,
-        width: 270,
-        marginTop: 10,
-        paddingTop: 5,
-        paddingBottom: 5,
+        height:'5%',
+        width:"80%",
         backgroundColor: '#FFFFFF',
         borderRadius: 25,
         shadowColor: '#6966FF',
@@ -89,11 +96,6 @@ const globalStyles = StyleSheet.create({
         color: '#6966FF',
         fontSize: 20,
         fontWeight: 'bold',
-    },
-    userInput_email:{
-        
-
-
     },
 
 })
