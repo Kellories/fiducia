@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SafeAreaView , TextInput} from "react-native";
-
+import { SafeAreaView , TextInput, Text, Pressable, View} from "react-native";
+import * as DocumentPicker from 'expo-document-picker'
 
 
 const Request = () => {
@@ -12,8 +12,11 @@ const Request = () => {
 
     const pickFile = async() => {
         try{
-            const response = await DocumentPicker.pickDirectory()
+            const response = await DocumentPicker.getDocumentAsync()
             const file = response.uri
+            if( file.type == 'cancel'){
+                return
+            }
             console.log(file)
             return setFile(file)
         }catch(err){
