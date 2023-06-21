@@ -1,11 +1,13 @@
 import React, {useState,useEffect} from 'react'
 import {Text, SafeAreaView, FlatList, View} from "react-native"
-import {getDocs, doc,collection } from 'firebase/firestore'
+import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
+import RequestCard from '../components/RequestCard'
 const db = require('../api/fireabaseConfig')
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
+const Stack = createNativeStackNavigator()
 
-
-const Lend = () => {
+const Lend = ({navigation}) => {
     const [requests,setRequest] =useState([])
 
     useEffect(()=>{
@@ -13,9 +15,9 @@ const Lend = () => {
             let requestArr = []
             const docSnap = await getDocs(collection(db,'LoanProposal'))
             docSnap.forEach((doc)=>{
-                console.log(doc)
-                console.log(doc.data())
-                requestArr.push(doc.data())
+                data = doc.data()
+                data['id'] = doc.id
+                requestArr.push(data)
             })
             setRequest(requestArr)
         }
@@ -28,8 +30,55 @@ const Lend = () => {
     return(
         <SafeAreaView>
             <Text>Requestees</Text>
-            <FlatList data = {requests} renderItem={({item})=><Text>{item.Name}            ${item.Loan}</Text>}/>
+            <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>}/>
         </SafeAreaView>
     )
 }
-export default Lend
+
+const LendDescription = ({route,navigation}) => {
+    const [proposal,setProposal] = useState({})
+    const {id} = route.params
+    console.log(id)
+    useEffect(()=>{
+        const getData = async() => {
+            const docRef = doc(db,'LoanProposal',id)
+            const docSnap = await getDoc(docRef)
+            if(docSnap.exists()){
+                setProposal(docSnap.data())
+                console.log(docSnap.data())
+            }else{
+                alert('Could Not Get Proposal!')
+            }
+            setProposal(docSnap.data())
+        }
+        getData()
+    },[])
+
+
+
+
+    return(
+        <SafeAreaView>
+            <Text>
+                {proposal.Loan}
+            </Text>
+            <Text>
+                {proposal.Name}
+            </Text>
+            <Text>
+                {proposal.Description}
+            </Text>
+        </SafeAreaView>
+    )
+}
+
+
+const LendStack = () =>{
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = "Lend" component={Lend}/>
+            <Stack.Screen name = 'LendDescription' component = {LendDescription}/>
+        </Stack.Navigator>
+    )
+}
+export default LendStack
