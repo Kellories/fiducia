@@ -33,29 +33,33 @@ const globalStyles = StyleSheet.create({
 
 
     },
-    userInput: {
-       marginTop:'10%',
-       width: '90%',
-       textAlignVertical:'center',
-       borderBottomWidth:3,
-       borderBottomColor:'#6966FF',
-    },
-    userInputText:{
-        color: '#6966FF',
-        fontSize:18,
-       
-    },
+    
     login_Title:{
-        fontSize: 30,
+        fontSize: 35,
+        marginLeft: '1%',
         color: '#6966FF',
         fontWeight: 'bold',
         left:'10%',
         bottom:'3%'
         
     },
+    userInput: {
+       marginTop:'5%',
+       width: '90%',
+       textAlignVertical:'center',
+       borderBottomWidth:3,
+       borderBottomColor:'#6966FF',
+    },
+    userInputText:{
+        marginBottom:'5%',
+        color: '#6966FF',
+        fontSize:18,
+       
+    },
+    
     register_text : {
         alignSelf:'center',
-        top:'3%'
+        top:'4%'
     },
 
 
