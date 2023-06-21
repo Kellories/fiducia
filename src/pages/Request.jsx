@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SafeAreaView , TextInput} from "react-native";
-import DocumentPicker, { pickDirectory } from 'react-native-document-picker'
+
 
 
 const Request = () => {
@@ -12,8 +12,9 @@ const Request = () => {
 
     const pickFile = async() => {
         try{
-            const response = await pickDirectory()
+            const response = await DocumentPicker.pickDirectory()
             const file = response.uri
+            console.log(file)
             return setFile(file)
         }catch(err){
             console.log(err)
