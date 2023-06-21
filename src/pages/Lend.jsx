@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import {Text, SafeAreaView, FlatList, View} from "react-native"
+import {Text, SafeAreaView, FlatList, View, ScrollView} from "react-native"
 import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
 const db = require('../api/fireabaseConfig')
@@ -55,10 +55,9 @@ const LendDescription = ({route,navigation}) => {
     },[])
 
 
-
-
     return(
         <SafeAreaView>
+            <ScrollView>
             <Text>
                 {proposal.Loan}
             </Text>
@@ -68,6 +67,7 @@ const LendDescription = ({route,navigation}) => {
             <Text>
                 {proposal.Description}
             </Text>
+            </ScrollView>
         </SafeAreaView>
     )
 }
