@@ -36,7 +36,7 @@ const Request = () => {
     }
 
     const createProposal = async() => {
-        const proposalFileRef = ref(storage, `proposal/${fileName}`)
+        const proposalFileRef = ref(storage, `proposal/${proposalId}/${fileName}`)
         if(file != undefined){
             try{
                 const response = await uploadBytes(proposalFileRef, file)
