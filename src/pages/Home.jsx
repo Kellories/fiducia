@@ -19,8 +19,7 @@ const HomeStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} options={{ headerShown: true }} />
-            <Stack.Screen name='Request' component={Request} options={{ headerShown: true}} />
-            <Stack.Screen name='LendStack' component={LendStack} options={{ headerShown: true}} />
+
         </Stack.Navigator>
     )
 

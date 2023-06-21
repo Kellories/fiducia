@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from 'react'
-import {Text, SafeAreaView, FlatList, View, ScrollView} from "react-native"
+import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput} from "react-native"
 import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
+import globalStyles from '../styles/globalStyles'
+import lendStyles from '../styles/lendStyles'
 const db = require('../api/fireabaseConfig')
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
@@ -28,27 +30,33 @@ const Lend = ({navigation}) => {
 
 
     return(
-        <SafeAreaView>
-            <Text>Requestees</Text>
-            <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>}/>
+        <SafeAreaView style = {globalStyles.container}>
+            <ScrollView>
+                <Text style = {lendStyles.requesteeText}>Requestees</Text>
+                <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>}/>
+            </ScrollView>
+
         </SafeAreaView>
     )
 }
 
 const LendDescription = ({route,navigation}) => {
     const [proposal,setProposal] = useState({})
+    const [currentPledge,setCurrentPledge] = useState(0)
+    const [pledgeAmount, setPledge] = useState('')
     const {id} = route.params
-    console.log(id)
     useEffect(()=>{
+        let currentLoan = 0
         const getData = async() => {
             const docRef = doc(db,'LoanProposal',id)
             const docSnap = await getDoc(docRef)
             if(docSnap.exists()){
                 setProposal(docSnap.data())
-                console.log(docSnap.data())
+                console.log(docSnap.data().Pledging.forEach((item)=>{console.log(item.amount); currentLoan += item.amount}))
             }else{
                 alert('Could Not Get Proposal!')
             }
+            setCurrentPledge(currentLoan)
             setProposal(docSnap.data())
         }
         getData()
@@ -59,7 +67,8 @@ const LendDescription = ({route,navigation}) => {
         <SafeAreaView>
             <ScrollView>
             <Text>
-                {proposal.Loan}
+                ${currentPledge} / ${proposal.Loan}
+                
             </Text>
             <Text>
                 {proposal.Name}
@@ -67,7 +76,9 @@ const LendDescription = ({route,navigation}) => {
             <Text>
                 {proposal.Description}
             </Text>
+            <TextInput placeholder= "Pledge Amount" onChangeText = {(e) => setPledge(e)}/>
             </ScrollView>
+       
         </SafeAreaView>
     )
 }

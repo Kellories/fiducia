@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import globalStyles from './src/styles/globalStyles';
 import Login from './src/pages/Login'
 import AppTabs from './src/pages/AppTabs';
-
+import Request from './src/pages/Request';
+import LendStack from './src/pages/Lend';
 
 const Stack = createNativeStackNavigator()
 
@@ -15,8 +16,9 @@ const App = () =>{
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name = 'Login' component={Login} options={{headerShown : false}}/>
           <Stack.Screen name = "AppTabs" component={AppTabs} options={{headerShown : false}}/>
+          <Stack.Screen name='Request' component={Request} options={{ headerShown: true}} />
+          <Stack.Screen name='LendStack' component={LendStack} options={{ headerShown: true}} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

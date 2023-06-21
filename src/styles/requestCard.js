@@ -5,12 +5,14 @@ const requestCardStyle = StyleSheet.create({
     flexContainer: {
         flex: 1,
         flexDirection:'row',
-        backgroundColor:'white',
+        backgroundColor:'#f5f5f5',
         justifyContent:'space-between',
         width: '90%',
         alignSelf:'center',
-        padding:'5%'
-    }
+        padding:'5%',
+        marginTop:'3%',
+        borderRadius:'20%'
+    },
 
 
 })
