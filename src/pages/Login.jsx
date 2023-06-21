@@ -118,9 +118,10 @@ const UserSignup = ({ navigation }) => {
                         createUserWithEmailAndPassword(auth, email, password)
                             .then(() => {
 
-                                const docRef = doc(db, 'users', auth.currentUser.email)
+                                const docRef = doc(db, 'users', auth.currentUser.uid)
                                 data = {
-                                    'username': username
+                                    'username': username,
+                                    'email': email
                                 }
                                 setDoc(docRef, data)
                                     .then(() => {

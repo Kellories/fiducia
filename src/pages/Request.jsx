@@ -14,9 +14,6 @@ const Request = () => {
         try{
             const response = await DocumentPicker.getDocumentAsync()
             const file = response.uri
-            if( file.type == 'cancel'){
-                return
-            }
             console.log(file)
             return setFile(file)
         }catch(err){

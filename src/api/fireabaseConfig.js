@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {API_KEY,AUTH_DOMAIN,PROJECT_ID,STORAGE_BUCKET,MESSAGING_SENDER_ID,APP_ID,MEASUREMENT_ID} from "@env"
 import {getFirestore} from 'firebase/firestore'
+import {getStorage} from 'firebase/storage'
 
 
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+const storage = getStorage(app)
 module.exports = db
 
 
