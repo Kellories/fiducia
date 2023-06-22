@@ -15,6 +15,7 @@ const Request = () => {
     const [proposalId,setProposalID] = useState('')
     const [loan,setLoan] =useState('')
     const [description,setDescription] = useState('')
+    const [title,setTitle] = useState('')
     const [file,setFile] = useState()
     const [fileName,setFileName] =useState()
     const pickFile = async() => {
@@ -50,6 +51,7 @@ const Request = () => {
         const docRef = doc(db,'LoanProposal',proposalId)
         const data = {
             'Name': name,
+            'Title': title,
             'Description': description,
             'Loan': loan,
             'UID': auth.currentUser.uid
@@ -71,8 +73,9 @@ const Request = () => {
     return(
       <SafeAreaView>
         <TextInput placeholder = "name" onChangeText = {(e)=>setName(e)}></TextInput>
+        <TextInput placeholder = 'title' onChangeText={(e)=>setTitle(e)}/>
         <TextInput placeholder = 'proposalID' onChangeText = {(e)=>setProposalID(e)}></TextInput>
-        <TextInput placeholder="loan value" onChangeText={(e)=>setLoan(e)}></TextInput>
+        <TextInput placeholder= "loan value" onChangeText={(e)=>setLoan(e)}></TextInput>
         <TextInput placeholder="description" onChangeText={(e)=>setDescription(e)}></TextInput>
         <Text>File(s)</Text>
         <Pressable onPress = {pickFile} >
