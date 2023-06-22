@@ -16,6 +16,7 @@ const App = () =>{
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name = "Login" component={Login} options={{headerShown : false}}/>
           <Stack.Screen name = "AppTabs" component={AppTabs} options={{headerShown : false}}/>
           <Stack.Screen name='Request' component={Request} options={{ headerShown: true}} />
           <Stack.Screen name='LendStack' component={LendStack} options={{ headerShown: true}} />

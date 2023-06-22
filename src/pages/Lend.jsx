@@ -1,9 +1,11 @@
 import React, {useState,useEffect} from 'react'
-import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput} from "react-native"
+import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput,KeyboardAvoidingView} from "react-native"
+import { getAuth } from 'firebase/auth'
 import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
 import globalStyles from '../styles/globalStyles'
 import lendStyles from '../styles/lendStyles'
+import PledgeAmt from '../components/PledgeAmt'
 const db = require('../api/fireabaseConfig')
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
@@ -31,11 +33,7 @@ const Lend = ({navigation}) => {
 
     return(
         <SafeAreaView style = {globalStyles.container}>
-            <ScrollView>
-                <Text style = {lendStyles.requesteeText}>Requestees</Text>
-                <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>}/>
-            </ScrollView>
-
+                <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>} ListHeaderComponent={<Text style = {lendStyles.requesteeText}>Requestees</Text>}/>
         </SafeAreaView>
     )
 }
@@ -45,6 +43,8 @@ const LendDescription = ({route,navigation}) => {
     const [currentPledge,setCurrentPledge] = useState(0)
     const [pledgeAmount, setPledge] = useState('')
     const {id} = route.params
+    const auth = getAuth()
+
     useEffect(()=>{
         let currentLoan = 0
         const getData = async() => {
@@ -53,6 +53,7 @@ const LendDescription = ({route,navigation}) => {
             if(docSnap.exists()){
                 setProposal(docSnap.data())
                 console.log(docSnap.data().Pledging.forEach((item)=>{console.log(item.amount); currentLoan += item.amount}))
+
             }else{
                 alert('Could Not Get Proposal!')
             }
@@ -64,7 +65,8 @@ const LendDescription = ({route,navigation}) => {
 
 
     return(
-        <SafeAreaView>
+        <SafeAreaView style = {globalStyles.container}>
+
             <ScrollView>
             <Text>
                 ${currentPledge} / ${proposal.Loan}
@@ -76,9 +78,11 @@ const LendDescription = ({route,navigation}) => {
             <Text>
                 {proposal.Description}
             </Text>
-            <TextInput placeholder= "Pledge Amount" onChangeText = {(e) => setPledge(e)}/>
+          
             </ScrollView>
-       
+          
+            <PledgeAmt request = {proposal.UID} id = {id} auth = {auth}/>
+    
         </SafeAreaView>
     )
 }
