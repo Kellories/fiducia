@@ -1,7 +1,14 @@
 
 ## Getting started
 First, clone the app by running `git clone https://github.com/Kellories/fiducia`
-then, run `yarn` in the root directory. After that, run `yarn start` to get the app started. 
+then, run `yarn` in the root directory. After that, create a file called `.env` in the root directory and populate it with the following lines: 
+`API_KEY="AIzaSyCFNuP3-nLCwgGcdVHbwbE0BFf8KigXePw"
+AUTH_DOMAIN="fiducia-8f23f.firebaseapp.com"
+PROJECT_ID="fiducia-8f23f"
+STORAGE_BUCKET="gs://fiducia-8f23f.appspot.com"
+MESSAGING_SENDER_ID="37155553816"
+APP_ID="1:37155553816:web:39d13234ff997657c1796d"
+MEASUREMENT_ID="G-LX3RXW6S7L"`
 
 You can now run the app in either an Android Studio emulator or on your physical phone using the Expo Go app. 
 
