@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput,KeyboardAvoidingView} from "react-native"
+import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput,KeyboardAvoidingView,Linking,Pressable} from "react-native"
 import { getAuth } from 'firebase/auth'
 import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
@@ -9,6 +9,7 @@ import pledgeStyle from '../styles/pledgeStyle'
 import PledgeAmt from '../components/PledgeAmt'
 import CompletedCard from '../components/completedCard'
 const db = require('../api/fireabaseConfig')
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import{ProgressBar,Colors} from 'react-native-paper'
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -138,6 +139,7 @@ const LendDescription = ({route,navigation}) => {
     const [currentPledge,setCurrentPledge] = useState(0)
     const [barProgress, setProgress] = useState(0)
     const [pledgeAmount, setPledge] = useState('')
+    const [fileUrl,setFileUrl] = useState('')
     const {id} = route.params
     const auth = getAuth()
     useEffect(()=>{
@@ -159,35 +161,59 @@ const LendDescription = ({route,navigation}) => {
          
            
         }
+
+
         getData()
-
+  
     },[])
+    const getFilePath = async()=>{
+        const storage = getStorage()
+        let path = " "
+        try{
+            const listResponse = await(listAll(ref(storage,'proposal/'+id+'/')))
+            listResponse.items.forEach((itemRef)=>{
+                path = itemRef._location.path_
+            })
+            console.log(path)
+            const response = await getDownloadURL(ref(storage,path))
+            setFileUrl(response)
+            console.log(response)
+            return response
+        }catch(err){
+            console.log(err)
+        }
 
-   
-    return(
-        <SafeAreaView style = {globalStyles.container}>
 
-            <ScrollView>
-            <Text style = {pledgeStyle.proposalTitle}>
-                {proposal.Title}
-            </Text>
-            <Text style = {pledgeStyle.loan}>
-                ${currentPledge} / ${proposal.Loan}
-                
-            </Text>
-            <Text style ={pledgeStyle.name}>
-                {proposal.Name}
-            </Text>
-            <Text style = {pledgeStyle.proposalDescription}>
-                {proposal.Description}
-            </Text>
-          
-            </ScrollView>
-          
-            <PledgeAmt request = {proposal.UID} id = {id} auth = {auth} />
+    }
+
+  
+        return(
+            <SafeAreaView style = {globalStyles.container}>
     
-        </SafeAreaView>
-    )
+                <ScrollView>
+                <Text style = {pledgeStyle.proposalTitle}>
+                    {proposal.Title}
+                </Text>
+                <Text style = {pledgeStyle.loan}>
+                    ${currentPledge} / ${proposal.Loan}
+                    
+                </Text>
+                <Text style ={pledgeStyle.name}>
+                    {proposal.Name}
+                </Text>
+                <Pressable onPress = {async()=>{await Linking.openURL(fileUrl)}}><View style = {pledgeStyle.fileBtn}><Text style = {{color:'white'}}>View Files</Text></View></Pressable>
+                <Text style = {pledgeStyle.proposalDescription}>
+                    {proposal.Description}
+                </Text>
+              
+                </ScrollView>
+              
+                <PledgeAmt request = {proposal.UID} id = {id} auth = {auth} />
+        
+            </SafeAreaView>
+        )
+    
+
 }
 
 
