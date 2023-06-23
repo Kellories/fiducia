@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import { useFonts } from 'expo-font';
 
 const signUpStyles = StyleSheet.create({
     
@@ -20,7 +20,7 @@ const signUpStyles = StyleSheet.create({
          marginBottom:'5%',
          color: '#6966FF',
          fontSize: 18,
-        
+         fontFamily:'Poppins',
      },
     signUp_Title:{
         fontSize: 35,
@@ -28,12 +28,13 @@ const signUpStyles = StyleSheet.create({
         color: '#6966FF',
         fontWeight: 'bold',
         left:'10%',
-        bottom:'3%'
-        
+        bottom:'3%',
+        fontFamily:'Poppins',
     },
     alreadyUser_text : {
         alignSelf:'center',
-        top:'4%'
+        top:'4%',
+        fontFamily:'Poppins'
     },
 
 
@@ -55,6 +56,7 @@ const signUpStyles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
+        fontFamily:'Poppins',
     },
     
 
