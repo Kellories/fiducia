@@ -8,6 +8,7 @@ import Login from './src/pages/Login'
 import AppTabs from './src/pages/AppTabs';
 import Request from './src/pages/Request';
 import LendStack from './src/pages/Lend';
+import HomeStack from './src/pages/Home';
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,7 @@ const App = () =>{
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name = "Home" component={HomeStack} options={{headerShown : false}}/>
           <Stack.Screen name = "Login" component={Login} options={{headerShown : false}}/>
           <Stack.Screen name = "AppTabs" component={AppTabs} options={{headerShown : false}}/>
           <Stack.Screen name='Request' component={Request} options={{ headerShown: true}} />
