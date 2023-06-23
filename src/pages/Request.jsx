@@ -91,7 +91,16 @@ const Request = () => {
                                 onChangeText={(e) => { setName(e) }} />
                         </View>
                     </View>
+                    <View style={requestStyles.input_container}>
+                        <Text style={requestStyles.userInputText}>Title</Text>
+                        <View style={requestStyles.userInput}>
 
+                            <TextInput
+                                placeholderTextColor="#6966FF"
+                                onChangeText={(e) => setTitle(e)}
+                            ></TextInput>
+                        </View>
+                    </View>
                     <View style={requestStyles.input_container}>
                         <Text style={requestStyles.userInputText}>Proposal ID</Text>
                         <View style={requestStyles.userInput}>

@@ -64,6 +64,7 @@ const PledgeAmt = ({id,auth,request}) => {
                         method:"POST", 
                         headers: { 'Content-Type': 'application/json' },
                         body:JSON.stringify({
+                            loanTitle: docSnap.data().Title,
                             borrower: docSnap.data().UID,
                             lenders: lenders,
                             lendAmounts: lendAmounts
