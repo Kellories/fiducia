@@ -7,12 +7,64 @@ import globalStyles from '../styles/globalStyles'
 import lendStyles from '../styles/lendStyles'
 import pledgeStyle from '../styles/pledgeStyle'
 import PledgeAmt from '../components/PledgeAmt'
+import CompletedCard from '../components/completedCard'
 const db = require('../api/fireabaseConfig')
 import{ProgressBar,Colors} from 'react-native-paper'
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+const Tab = createMaterialTopTabNavigator();
 
 const Stack = createNativeStackNavigator()
+
+const LendTab = () => {
+    return(
+        <Tab.Navigator>
+        <Tab.Screen name = "Pending" component = {PendingStack}/>
+        <Tab.Screen name = "Completed" component = {CompletedStack}/>
+        </Tab.Navigator>
+
+    )
+}
+
+const FundedLoans  = ({navigation}) => {
+        const [loans,setLoans] = useState([])
+        useEffect( ()=>{
+            const getFundedLoans = async () => {
+                let loansArr = []
+                const response = await fetch('http://13.212.100.69:5000/getLoanLedger',{method:"GET"})
+                const fundedLoans = await response.json()
+                fundedLoans.forEach((loan)=>{
+                    for( i in loan.lendAmounts){
+                        loan.lendAmounts[i] = parseFloat(loan.lendAmounts[i])
+                    }
+                    loansArr.push(loan)
+                })
+                setLoans(loansArr)
+            }
+            getFundedLoans()
+        },[])
+
+
+        console.log(loans)
+    return(
+        <SafeAreaView>
+            <FlatList data = {loans} renderItem={({item})=><CompletedCard item = {item} onPress={()=>{
+            }}/>} />
+        </SafeAreaView>
+    )
+
+
+
+}
+
+const FundedLoansDescription = () => {
+    return(
+        <SafeAreaView>
+
+        </SafeAreaView>
+    )
+}
 
 const Lend = ({navigation}) => {
     const [requests,setRequest] =useState([])
@@ -32,14 +84,16 @@ const Lend = ({navigation}) => {
 
 
     },[])
-
+    
 
     return(
         <SafeAreaView style = {globalStyles.container}>
-                <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('LendDescription',{id:item.id})}}/>} ListHeaderComponent={<Text style = {lendStyles.requesteeText}>Requestees</Text>}/>
+                <FlatList data = {requests} renderItem={({item})=><RequestCard item = {item} onPress={()=>{navigation.navigate('PendingDescription',{id:item.id})}}/>} ListHeaderComponent={<Text style = {lendStyles.requesteeText}>Requestees</Text>}/>
         </SafeAreaView>
     )
 }
+
+
 
 const LendDescription = ({route,navigation}) => {
     const [proposal,setProposal] = useState({})
@@ -74,7 +128,7 @@ const LendDescription = ({route,navigation}) => {
         console.log(currentPledge/proposal.Loan)
 
     },[])
-    
+
    
     return(
         <SafeAreaView style = {globalStyles.container}>
@@ -103,12 +157,22 @@ const LendDescription = ({route,navigation}) => {
 }
 
 
-const LendStack = () =>{
+const PendingStack = () => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Lend" component={Lend}/>
-            <Stack.Screen name = 'LendDescription' component = {LendDescription}/>
+            <Stack.Screen name = "PendingList" component = {Lend}/>
+            <Stack.Screen name = "PendingDescription" component={LendDescription}/>
         </Stack.Navigator>
     )
 }
-export default LendStack
+
+const CompletedStack = () => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = "CompletedList" component = {FundedLoans}/>
+            <Stack.Screen name = "CompletedDescription" component = {FundedLoansDescription}/>
+        </Stack.Navigator>
+    )
+}
+
+export default LendTab

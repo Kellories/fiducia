@@ -26,7 +26,6 @@ const HomeStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name='Home' component={Home} options={{ headerShown: true }} />
-
         </Stack.Navigator>
     )
 
