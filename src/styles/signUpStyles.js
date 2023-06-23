@@ -26,7 +26,6 @@ const signUpStyles = StyleSheet.create({
         fontSize: 35,
         marginLeft: '1%',
         color: '#6966FF',
-        fontWeight: 'bold',
         left:'10%',
         bottom:'3%',
         fontFamily:'Poppins',
@@ -55,7 +54,6 @@ const signUpStyles = StyleSheet.create({
     SignupText: {
         color: 'white',
         fontSize: 20,
-        fontWeight: 'bold',
         fontFamily:'Poppins',
     },
     
