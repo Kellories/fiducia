@@ -3,6 +3,7 @@ import { SafeAreaView, TextInput, Text, Pressable, View, Keyboard, ScrollView, K
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import requestStyles from "../styles/requestStyles";
 import * as DocumentPicker from 'expo-document-picker'
+import BackButton from "../components/backButton";
 
 // firebase stuff
 import { doc, setDoc, getDoc } from "@firebase/firestore";
@@ -10,7 +11,7 @@ import { getAuth } from 'firebase/auth'
 const db = require('../api/fireabaseConfig')
 const storage = getStorage()
 
-const Request = () => {
+const Request = ({navigation}) => {
     const auth = getAuth()
 
     const [name,setName ] = useState('')
@@ -76,6 +77,7 @@ const Request = () => {
     return (
 
         <SafeAreaView style={requestStyles.container}>
+            <BackButton onPress={() => {navigation.navigate('AppTabs')}} />
             <View style={requestStyles.req_container}>
                 <Text style={requestStyles.req_Title}>Loan Request</Text></View>
             <View style={requestStyles.formContainer}>

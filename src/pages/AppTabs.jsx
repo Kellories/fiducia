@@ -44,7 +44,7 @@ const AppTabs = () => {
         initialRouteName = "Home"
         >
             <Tab.Screen name = "Home" component={Home} options={{headerShown : false}}/>
-            <Tab.Screen name = "Profile" component={Profile} options={{headerShown : false}}/>
+            {/* <Tab.Screen name = "Profile" component={Profile} options={{headerShown : false}}/> */}
         </Tab.Navigator>
     )
 }

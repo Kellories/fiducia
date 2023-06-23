@@ -20,10 +20,9 @@ const Stack = createNativeStackNavigator()
 const LendTab = () => {
     return(
         <Tab.Navigator>
-        <Tab.Screen name = "Pending" component = {PendingStack}/>
-        <Tab.Screen name = "Completed" component = {CompletedStack}/>
+            <Tab.Screen name = "Pending" component = {PendingStack}/>
+            <Tab.Screen name = "Completed" component = {CompletedStack}/>
         </Tab.Navigator>
-
     )
 }
 
@@ -194,8 +193,8 @@ const LendDescription = ({route,navigation}) => {
 const PendingStack = () => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "PendingList" component = {Lend}options={{headerShown:false}}/>
-            <Stack.Screen name = "PendingDescription" component={LendDescription}options={{headerShown:false}}/>
+            <Stack.Screen name = "PendingList" component = {Lend} options={{headerShown:false}}/>
+            <Stack.Screen name = "PendingDescription" component={LendDescription} options={{headerShown:false}}/>
         </Stack.Navigator>
     )
 }
