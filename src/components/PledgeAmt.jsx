@@ -56,17 +56,19 @@ const PledgeAmt = ({id,auth,request}) => {
             }
             console.log(docSnap.data().Title)
             console.log(lenders)
+          
             console.log(lendAmounts)
             if(check >= docSnap.data().Loan){
-                console.log(docSnap.data().Title)
+                console.log(docSnap.data().UID)
                 try{
                     await fetch('http://13.212.100.69:5000/createLoanLedger',{
-                        method:"POST", 
+                        method:"POST",
+                        headers:{'Content-Type':'application/json'},
                         body:JSON.stringify({
-                            loanTitle: docSnap.data().Title,
-                            borrower: docSnap.data().UID,
-                            lenders: lenders,
-                            lendAmounts: lendAmounts
+                            loanTitle:docSnap.data().Title,
+                            borrower:docSnap.data().UID,
+                            lenders:lenders,
+                            lendAmounts:lendAmounts
                         })
                     }).then(async (response)=>{
                         console.log(response.json())

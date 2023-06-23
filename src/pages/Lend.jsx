@@ -48,11 +48,18 @@ const FundedLoans  = ({navigation}) => {
         },[])
 
 
-        console.log(loans)
     return(
         <SafeAreaView style = {globalStyles.container}>
-            <FlatList data = {loans} renderItem={({item})=><CompletedCard item = {item} onPress={()=>{navigation.navigate('CompletedDescription',{data:data})
-            }}/>} ListHeaderComponent={<Text style = {lendStyles.requesteeText}>Completed Proposals</Text>} />
+            <Text style = {lendStyles.requesteeText}>Completed Proposals</Text>
+            <ScrollView>
+            {loans.map((item)=>{
+                return(
+                    <CompletedCard item = {item} onPress={()=>{navigation.navigate('CompletedDescription',{data: item})}}/>
+                )
+            })}
+            </ScrollView>
+
+
         </SafeAreaView>
     )
 
@@ -62,10 +69,37 @@ const FundedLoans  = ({navigation}) => {
 
 const FundedLoansDescription = ({route,navigation}) => {
     const {data} = route.params
+    const[lenders,setLenders] = useState([])
+    const[borrowerData,setData] = useState(data)
+    
+    console.log('data')
     console.log(data)
+    useEffect(()=>{
+        let lendersArr = []
+
+        const getUsername = async() => {
+
+            for(i in data.lenders){
+                console.log(data.lenders[i])
+                const docSnap = await getDoc(doc(db,'users',data.lenders[i]))
+                lendersArr.push({username:docSnap.data().username,amount:data.lendAmounts[i]})
+               
+            }
+            const docSnap = await getDoc(doc(db,'users',data.borrower))
+            setData({username:docSnap.data().username,loan:data.lendAmounts})
+
+            console.log(lendersArr)
+
+            setLenders(lendersArr)
+        }
+        getUsername()
+    },[])
+    console.log(lenders)
     return(
         <SafeAreaView>
-
+            <Text>{borrowerData.username}</Text>
+            <Text>{borrowerData.loan}</Text>
+            <FlatList data= {lenders} renderItem={({item})=><View><Text>{item.username}</Text><Text>{item.amount}</Text></View>}/>
         </SafeAreaView>
     )
 }
