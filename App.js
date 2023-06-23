@@ -14,9 +14,7 @@ import { useFonts } from 'expo-font';
 const Stack = createNativeStackNavigator()
 
 const App = () =>{
-  const [fontsLoaded] = useFonts({
-    'Poppins': require('./assets/fonts/Poppins-Regular.ttf')
-  })
+
   return(
     <SafeAreaProvider>
       <NavigationContainer>
