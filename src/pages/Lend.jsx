@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Text, SafeAreaView, FlatList, View, ScrollView, TextInput, KeyboardAvoidingView, Pressable } from "react-native"
+
+import React, {useState,useEffect} from 'react'
+import {Text, SafeAreaView, FlatList, View, ScrollView, TextInput,KeyboardAvoidingView,Linking,Pressable} from "react-native"
 import { getAuth } from 'firebase/auth'
 import { getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
@@ -9,7 +10,8 @@ import pledgeStyle from '../styles/pledgeStyle'
 import PledgeAmt from '../components/PledgeAmt'
 import CompletedCard from '../components/completedCard'
 const db = require('../api/fireabaseConfig')
-import { ProgressBar, Colors } from 'react-native-paper'
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import{ProgressBar,Colors} from 'react-native-paper'
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -21,10 +23,11 @@ const Stack = createNativeStackNavigator()
 const LendTab = () => {
     return (
         <Tab.Navigator>
+
             <Tab.Screen name="Pending" component={PendingStack} />
             <Tab.Screen name="Completed" component={CompletedStack} />
-        </Tab.Navigator>
 
+        </Tab.Navigator>
     )
 }
 
@@ -96,11 +99,12 @@ const FundedLoansDescription = ({ route, navigation }) => {
         getUsername()
     }, [])
     console.log(lenders)
+
     return (
         <SafeAreaView style={globalStyles.container}>
             <ScrollView>
                 <Text style={completedLoanStyle.proposalTitle}>
-                    Proposal Title
+                  {data.loanTitle}
                 </Text>
 
                 <Text style={completedLoanStyle.loan}>
@@ -135,6 +139,7 @@ const FundedLoansDescription = ({ route, navigation }) => {
                     </View>
                 </Pressable>
             </View>
+
         </SafeAreaView>
 
 
@@ -179,7 +184,10 @@ const LendDescription = ({ route, navigation }) => {
     const [currentPledge, setCurrentPledge] = useState(0)
     const [barProgress, setProgress] = useState(0)
     const [pledgeAmount, setPledge] = useState('')
-    const { id } = route.params
+
+    const [fileUrl,setFileUrl] = useState('')
+    const {id} = route.params
+
     const auth = getAuth()
     useEffect(() => {
         let currentLoan = 0
@@ -200,43 +208,70 @@ const LendDescription = ({ route, navigation }) => {
 
 
         }
+
+
         getData()
+  
+    },[])
+    const getFilePath = async()=>{
+        const storage = getStorage()
+        let path = " "
+        try{
+            const listResponse = await(listAll(ref(storage,'proposal/'+id+'/')))
+            listResponse.items.forEach((itemRef)=>{
+                path = itemRef._location.path_
+            })
+            console.log(path)
+            const response = await getDownloadURL(ref(storage,path))
+            setFileUrl(response)
+            console.log(response)
+            return response
+        }catch(err){
+            console.log(err)
+        }
 
-    }, [])
 
+    }
 
-    return (
-        <SafeAreaView style={globalStyles.container}>
-
-            <ScrollView>
-                <Text style={pledgeStyle.proposalTitle}>
+  
+        return(
+            <SafeAreaView style = {globalStyles.container}>
+    
+                <ScrollView>
+                <Text style = {pledgeStyle.proposalTitle}>
                     {proposal.Title}
                 </Text>
-                <Text style={pledgeStyle.loan}>
+                <Text style = {pledgeStyle.loan}>
                     ${currentPledge} / ${proposal.Loan}
-
+                    
                 </Text>
-                <Text style={pledgeStyle.name}>
+                <Text style ={pledgeStyle.name}>
                     {proposal.Name}
                 </Text>
-                <Text style={pledgeStyle.proposalDescription}>
+                <Pressable onPress = {async()=>{await Linking.openURL(fileUrl)}}><View style = {pledgeStyle.fileBtn}><Text style = {{color:'white'}}>View Files</Text></View></Pressable>
+                <Text style = {pledgeStyle.proposalDescription}>
                     {proposal.Description}
                 </Text>
+              
+                </ScrollView>
+              
+                <PledgeAmt request = {proposal.UID} id = {id} auth = {auth} />
+        
+            </SafeAreaView>
+        )
+    
 
-            </ScrollView>
 
-            <PledgeAmt request={proposal.UID} id={id} auth={auth} />
-
-        </SafeAreaView>
-    )
 }
 
 
 const PendingStack = () => {
     return (
         <Stack.Navigator>
+
             <Stack.Screen name="PendingList" component={Lend} options={{ headerShown: false }} />
             <Stack.Screen name="PendingDescription" component={LendDescription} options={{ headerShown: false }} />
+
         </Stack.Navigator>
     )
 }

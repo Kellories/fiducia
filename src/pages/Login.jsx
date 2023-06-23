@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, TextInput, Pressable, Text, View, Alert } from "react-native";
 import LoginButton from "../components/LoginButton";
 import globalStyles from "../styles/globalStyles";
+import signUpStyles from "../styles/signUpStyles";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -80,44 +81,81 @@ const UserSignup = ({navigation}) =>{
 
 
     return (
-        <SafeAreaView>
-            <TextInput placeholder = "Username" onChangeText={(e)=>setUsername(e)}/>
-            <TextInput placeholder = "Email" onChangeText={(e)=>{setEmail(e)}}/>
-            <TextInput placeholder="Password" onChangeText= {(e)=>(setPassword(e))}/>
-            <Pressable onPress={() => { navigation.navigate('userLogin') }}><Text>Already a User?</Text></Pressable>
-            <Pressable onPress={()=>{
-                console.log(email,password)
-
-                createUserWithEmailAndPassword(auth,email,password)
-                .then(()=>{
-
-                    const docRef = doc(db,'users',auth.currentUser.email)
-                    data = {
-                        'username': username
-                    }
-                    setDoc(docRef,data)
-                    .then(()=>{
-                        console.log("Successfully registered!")
-                        alert("User created! Please Login!")
-                        navigation.navigate('userLogin')
-                    })
-                    .catch((error)=>{
-                        console.log(error)
-                    })
-
-                   
-                })
-                .catch((error)=>{
-                    console.log(error.code)
-                    console.log(error.message)
-                })
-
-            }} 
-            style = {globalStyles.LoginButton}>
-
-                <Text> Register </Text>
-            </Pressable>
-        </SafeAreaView>
+            <SafeAreaView style={globalStyles.container}>
+    
+                <View style={globalStyles.loginContainer}>
+                    <Text style={signUpStyles.signUp_Title}>Sign up</Text>
+    
+    
+    
+                    <View style={globalStyles.login_Container}>
+    
+                        <View style={signUpStyles.userInput}>
+                            <Text style={signUpStyles.userInputText}>Username</Text>
+                            <TextInput
+                                placeholderTextColor="#6966FF"
+                                onChangeText={(e) => setUsername(e)} />
+                        </View>
+    
+                        <View style={signUpStyles.userInput}>
+                            <Text style={signUpStyles.userInputText}>Email</Text>
+                            <TextInput
+                                placeholderTextColor="#6966FF"
+                                onChangeText={(e) => { setEmail(e) }} />
+                        </View>
+    
+                        <View style={signUpStyles.userInput}>
+                            <Text style={signUpStyles.userInputText}>Password</Text>
+                            <TextInput
+                                placeholderTextColor="#6966FF"
+                                onChangeText={(e) => (setPassword(e))} />
+                        </View>
+    
+    
+                        <Pressable onPress={() => {
+                            console.log(email, password)
+    
+                            createUserWithEmailAndPassword(auth, email, password)
+                                .then(() => {
+    
+                                    const docRef = doc(db, 'users', auth.currentUser.uid)
+                                    data = {
+                                        'username': username,
+                                        'email': email
+                                    }
+                                    setDoc(docRef, data)
+                                        .then(() => {
+                                            console.log("Successfully registered!")
+                                            alert("User created! Please Login!")
+                                            navigation.navigate('userLogin')
+                                        })
+                                        .catch((error) => {
+                                            console.log(error)
+                                        })
+    
+    
+                                })
+                                .catch((error) => {
+                                    console.log(error.code)
+                                    console.log(error.message)
+                                })
+    
+                        }}
+                            style={signUpStyles.signUpButton}>
+                                <Text style={signUpStyles.SignupText}> Sign up </Text>
+    
+                        </Pressable>
+                    </View>
+    
+                    <Pressable>
+                   </Pressable>
+                        <Text style={signUpStyles.alreadyUser_text}>Already a user?</Text>
+                    <Pressable onPress={() => { navigation.navigate('userLogin') }}
+                        style={globalStyles.RegisterButton}>
+                        <Text style={globalStyles.GetStartedText}>Login</Text>
+                    </Pressable>
+                </View>
+            </SafeAreaView>
 
 
 

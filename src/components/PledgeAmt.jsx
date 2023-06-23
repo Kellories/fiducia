@@ -4,12 +4,6 @@ import { useState } from "react"
 const db = require('../api/fireabaseConfig')
 import { doc , setDoc, updateDoc, arrayUnion, arrayRemove, getDoc, deleteDoc} from "firebase/firestore"
 
-
-
-
-
-
-
 const PledgeAmt = ({id,auth,request}) => {
     const [pledgeAmt,setPledgeAmt] = useState()
     const uid = auth.currentUser.uid

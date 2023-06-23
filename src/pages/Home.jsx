@@ -8,16 +8,17 @@ const Stack = createNativeStackNavigator()
 
 const Home = ({navigation}) => {
     return(
-        <SafeAreaView>
+        <View>
             <View style={globalStyles.HomeNavContainer}>
+                <Text style={globalStyles.HomeNavTitle}>Home</Text>
                 <Text style={globalStyles.HomeNavTextHeader}>Fast Actions</Text>
                 <View style={globalStyles.HomeNavLayout}>
                     <HomeNavButton name = "Request" onPress={()=>{navigation.navigate("Request")}}/>
-                    <HomeNavButton name = "Lend" onPress={()=>{navigation.navigate("LendStack")}}/>
+                    <HomeNavButton name = "Lend" onPress={()=>{navigation.navigate("Loans")}}/>
                     <HomeNavButton name = "Repay" onPress={()=>{console.log('Repay btn pressed')}}/>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     )
 
 }
@@ -25,7 +26,7 @@ const Home = ({navigation}) => {
 const HomeStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Home' component={Home} options={{ headerShown: true }} />
+            <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 
