@@ -208,30 +208,30 @@ const LendDescription = ({ route, navigation }) => {
 
 
         }
-
-
+        const getFilePath = async()=>{
+            const storage = getStorage()
+            let path = " "
+            try{
+                const listResponse = await(listAll(ref(storage,'proposal/'+id+'/')))
+                listResponse.items.forEach((itemRef)=>{
+                    path = itemRef._location.path_
+                })
+                console.log(path)
+                const response = await getDownloadURL(ref(storage,path))
+                setFileUrl(response)
+                console.log(response)
+                return response
+            }catch(err){
+                console.log(err)
+            }
+    
+    
+        }
+        getFilePath()
         getData()
   
     },[])
-    const getFilePath = async()=>{
-        const storage = getStorage()
-        let path = " "
-        try{
-            const listResponse = await(listAll(ref(storage,'proposal/'+id+'/')))
-            listResponse.items.forEach((itemRef)=>{
-                path = itemRef._location.path_
-            })
-            console.log(path)
-            const response = await getDownloadURL(ref(storage,path))
-            setFileUrl(response)
-            console.log(response)
-            return response
-        }catch(err){
-            console.log(err)
-        }
 
-
-    }
 
   
         return(
