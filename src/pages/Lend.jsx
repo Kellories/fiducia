@@ -29,11 +29,13 @@ const LendTab = () => {
 
 const FundedLoans  = ({navigation}) => {
         const [loans,setLoans] = useState([])
+        const [data,setData] = useState()
         useEffect( ()=>{
             const getFundedLoans = async () => {
                 let loansArr = []
                 const response = await fetch('http://13.212.100.69:5000/getLoanLedger',{method:"GET"})
                 const fundedLoans = await response.json()
+                setData(fundedLoans)
                 fundedLoans.forEach((loan)=>{
                     for( i in loan.lendAmounts){
                         loan.lendAmounts[i] = parseFloat(loan.lendAmounts[i])
@@ -48,9 +50,9 @@ const FundedLoans  = ({navigation}) => {
 
         console.log(loans)
     return(
-        <SafeAreaView>
-            <FlatList data = {loans} renderItem={({item})=><CompletedCard item = {item} onPress={()=>{
-            }}/>} />
+        <SafeAreaView style = {globalStyles.container}>
+            <FlatList data = {loans} renderItem={({item})=><CompletedCard item = {item} onPress={()=>{navigation.navigate('CompletedDescription',{data:data})
+            }}/>} ListHeaderComponent={<Text style = {lendStyles.requesteeText}>Completed Proposals</Text>} />
         </SafeAreaView>
     )
 
@@ -58,7 +60,9 @@ const FundedLoans  = ({navigation}) => {
 
 }
 
-const FundedLoansDescription = () => {
+const FundedLoansDescription = ({route,navigation}) => {
+    const {data} = route.params
+    console.log(data)
     return(
         <SafeAreaView>
 
@@ -130,7 +134,7 @@ const LendDescription = ({route,navigation}) => {
         <SafeAreaView style = {globalStyles.container}>
 
             <ScrollView>
-            <Text style = {pledgeStyle.proposalTitle}>``
+            <Text style = {pledgeStyle.proposalTitle}>
                 {proposal.Title}
             </Text>
             <Text style = {pledgeStyle.loan}>
@@ -156,8 +160,8 @@ const LendDescription = ({route,navigation}) => {
 const PendingStack = () => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "PendingList" component = {Lend}/>
-            <Stack.Screen name = "PendingDescription" component={LendDescription}/>
+            <Stack.Screen name = "PendingList" component = {Lend}options={{headerShown:false}}/>
+            <Stack.Screen name = "PendingDescription" component={LendDescription}options={{headerShown:false}}/>
         </Stack.Navigator>
     )
 }
@@ -165,7 +169,7 @@ const PendingStack = () => {
 const CompletedStack = () => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "CompletedList" component = {FundedLoans}/>
+            <Stack.Screen name = "CompletedList" component = {FundedLoans} options={{headerShown:false}}/>
             <Stack.Screen name = "CompletedDescription" component = {FundedLoansDescription}/>
         </Stack.Navigator>
     )
