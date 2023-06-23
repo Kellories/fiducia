@@ -122,10 +122,6 @@ const LendDescription = ({route,navigation}) => {
            
         }
         getData()
-        console.log(proposal)
-        console.log(currentPledge)
-        console.log(proposal.Loan)
-        console.log(currentPledge/proposal.Loan)
 
     },[])
 
