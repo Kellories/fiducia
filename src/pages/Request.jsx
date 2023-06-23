@@ -12,13 +12,16 @@ const storage = getStorage()
 
 const Request = () => {
     const auth = getAuth()
-    const [name, setName] = useState('')
-    const [proposalId, setProposalID] = useState('')
-    const [loan, setLoan] = useState('')
-    const [description, setDescription] = useState('')
-    const [file, setFile] = useState()
-    const [fileName, setFileName] = useState()
-    const pickFile = async () => {
+
+    const [name,setName ] = useState('')
+    const [proposalId,setProposalID] = useState('')
+    const [loan,setLoan] =useState('')
+    const [description,setDescription] = useState('')
+    const [title,setTitle] = useState('')
+    const [file,setFile] = useState()
+    const [fileName,setFileName] =useState()
+    const pickFile = async() => {
+
         const file = await DocumentPicker.getDocumentAsync()
         console.log(file)
 
@@ -51,6 +54,7 @@ const Request = () => {
         const docRef = doc(db, 'LoanProposal', proposalId)
         const data = {
             'Name': name,
+            'Title': title,
             'Description': description,
             'Loan': loan,
             'UID': auth.currentUser.uid
@@ -140,6 +144,7 @@ const Request = () => {
 
 
                 </View>
+
             </View>
         </SafeAreaView>
     )

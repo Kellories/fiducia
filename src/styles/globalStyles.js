@@ -102,5 +102,53 @@ const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    // HomeNavBtn in Home page
+    HomeNavButton: {
+        backgroundColor: '#FFFFFF',
+        width: '23%',
+        height: '100%',
+        borderRadius: 25,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        shadowColor: '#1E1E1E',
+        shadowOpacity:0.1,
+        shadowOffset: {width: 5, height: 10},
+        shadowOpacity: 2,
+        shadowRadius: 10,
+    },
+    HomeNavButtonText: {
+        fontSize: 14,
+        color: '#6966FF',
+        fontWeight: '500',
+        textAlign: 'center',
+        margin: 10
+    },
+    
+    // HomeNav 
+    HomeNavContainer: {
+        height: '50%',
+        backgroundColor: '#6966FF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        padding: 8,
+        borderRadius: 40
+    },
+    HomeNavLayout: {
+        height: '47%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+    },
+    HomeNavTextHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        margin: 10,
+        marginLeft: 25
+    }
+    
 })
 export default globalStyles

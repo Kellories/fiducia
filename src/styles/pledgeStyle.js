@@ -5,12 +5,10 @@ import { StyleSheet } from "react-native";
 const pledgeStyle = StyleSheet.create({
 
     flexContainer:{
-        flex:0,
         flexDirection:'row',
         justifyContent:'space-between',
-        backgroundColor:'#ffffff',
         padding:'6%',
-        
+
     },
     pledgeBtn:{
         backgroundColor:'#3D3BB8',
@@ -23,8 +21,35 @@ const pledgeStyle = StyleSheet.create({
         backgroundColor:'#f5f5f5',
         width:'75%',
         borderRadius:7
+    },
+    proposalTitle:{
+        fontSize:20,
+        fontWeight:'bold',
+        marginLeft:'6%',
+        marginTop:'10%',
+        marginBottom:'3%',
+    },
+    loan:{
+        fontSize:58,
+        marginLeft:'6%',
+        fontWeight:'500',
+        color:'#5351BD'
+    },
+    proposalDescription:{
+        marginLeft:'6%',
+        width:'90%',
+        marginTop:'2%'
+    },
+    name:{
+        marginLeft:'6%',
+        marginTop:'5%',
+        fontSize:16,
+        fontWeight:'700'
     }
 
+
 })
+
+
 
 export default pledgeStyle

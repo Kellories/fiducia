@@ -5,8 +5,11 @@ import {getDocs, doc, getDoc, collection } from 'firebase/firestore'
 import RequestCard from '../components/RequestCard'
 import globalStyles from '../styles/globalStyles'
 import lendStyles from '../styles/lendStyles'
+import pledgeStyle from '../styles/pledgeStyle'
 import PledgeAmt from '../components/PledgeAmt'
 const db = require('../api/fireabaseConfig')
+import{ProgressBar,Colors} from 'react-native-paper'
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 const Stack = createNativeStackNavigator()
@@ -41,10 +44,10 @@ const Lend = ({navigation}) => {
 const LendDescription = ({route,navigation}) => {
     const [proposal,setProposal] = useState({})
     const [currentPledge,setCurrentPledge] = useState(0)
+    const [barProgress, setProgress] = useState(0)
     const [pledgeAmount, setPledge] = useState('')
     const {id} = route.params
     const auth = getAuth()
-
     useEffect(()=>{
         let currentLoan = 0
         const getData = async() => {
@@ -52,36 +55,48 @@ const LendDescription = ({route,navigation}) => {
             const docSnap = await getDoc(docRef)
             if(docSnap.exists()){
                 setProposal(docSnap.data())
-                console.log(docSnap.data().Pledging.forEach((item)=>{console.log(item.amount); currentLoan += item.amount}))
+                docSnap.data().Pledging.forEach((item)=>{console.log(item.amount); currentLoan += item.amount})
+                setCurrentPledge(currentLoan)
+
+
 
             }else{
                 alert('Could Not Get Proposal!')
             }
-            setCurrentPledge(currentLoan)
-            setProposal(docSnap.data())
+
+         
+           
         }
         getData()
+        console.log(proposal)
+        console.log(currentPledge)
+        console.log(proposal.Loan)
+        console.log(currentPledge/proposal.Loan)
+
     },[])
-
-
+    
+   
     return(
         <SafeAreaView style = {globalStyles.container}>
 
             <ScrollView>
-            <Text>
+            <Text style = {pledgeStyle.proposalTitle}>``
+                {proposal.Title}
+            </Text>
+            <Text style = {pledgeStyle.loan}>
                 ${currentPledge} / ${proposal.Loan}
                 
             </Text>
-            <Text>
+            <Text style ={pledgeStyle.name}>
                 {proposal.Name}
             </Text>
-            <Text>
+            <Text style = {pledgeStyle.proposalDescription}>
                 {proposal.Description}
             </Text>
           
             </ScrollView>
           
-            <PledgeAmt request = {proposal.UID} id = {id} auth = {auth}/>
+            <PledgeAmt request = {proposal.UID} id = {id} auth = {auth} />
     
         </SafeAreaView>
     )

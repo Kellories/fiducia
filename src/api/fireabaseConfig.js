@@ -3,7 +3,6 @@ import {API_KEY,AUTH_DOMAIN,PROJECT_ID,STORAGE_BUCKET,MESSAGING_SENDER_ID,APP_ID
 import {getFirestore} from 'firebase/firestore'
 import {getStorage} from 'firebase/storage'
 
-
 const firebaseConfig = {
     apiKey: API_KEY,
     authDomain: AUTH_DOMAIN,
