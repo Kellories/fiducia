@@ -133,7 +133,8 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         padding: 8,
-        borderRadius: 40
+        borderBottomLeftRadius: 40,
+        borderBottomRightRadius: 40
     },
     HomeNavLayout: {
         height: '47%',

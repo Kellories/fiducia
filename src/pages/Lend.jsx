@@ -96,7 +96,7 @@ const FundedLoansDescription = ({route,navigation}) => {
     },[])
     console.log(lenders)
     return(
-        <SafeAreaView>
+        <SafeAreaView style = {globalStyles.container}>
             <Text>{borrowerData.username}</Text>
             <Text>{borrowerData.loan}</Text>
             <FlatList data= {lenders} renderItem={({item})=><View><Text>{item.username}</Text><Text>{item.amount}</Text></View>}/>
