@@ -48,6 +48,19 @@ const pledgeStyle = StyleSheet.create({
         fontSize:16,
         fontWeight:'700',
         fontFamily:'Poppins'
+    },
+    fileBtn:{
+        flex:1,
+        justifyContent:'center',
+        textAlign:'center',
+        flexDirection:'row',
+        backgroundColor:'#6966FF',
+        width:'25%',
+        marginLeft:'5%',
+        marginTop:'2%',
+        padding:3,
+        borderRadius:10
+
     }
 
 

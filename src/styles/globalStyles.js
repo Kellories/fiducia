@@ -107,7 +107,7 @@ const globalStyles = StyleSheet.create({
     HomeNavButton: {
         backgroundColor: '#FFFFFF',
         width: '23%',
-        height: '100%',
+        height: '70%',
         borderRadius: 25,
         display: 'flex',
         justifyContent: 'flex-end',
@@ -118,6 +118,7 @@ const globalStyles = StyleSheet.create({
         shadowRadius: 10,
     },
     HomeNavButtonText: {
+        fontFamily: 'Poppins',
         fontSize: 14,
         color: '#6966FF',
         fontWeight: '500',
@@ -127,7 +128,7 @@ const globalStyles = StyleSheet.create({
     
     // HomeNav 
     HomeNavContainer: {
-        height: '50%',
+        height: '60%',
         backgroundColor: '#6966FF',
         display: 'flex',
         justifyContent: 'center',
@@ -146,10 +147,18 @@ const globalStyles = StyleSheet.create({
     },
     HomeNavTextHeader: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'PoppinsMedium',
         color: '#FFFFFF',
         margin: 10,
         marginLeft: 25
+    },
+    HomeNavTitle: {
+        fontSize: 32,
+        fontFamily: 'PoppinsBold',
+        color: '#FFFFFF',
+        marginTop: 50,
+        marginLeft: 25,
+        marginBottom: 15
     }
     
 })
