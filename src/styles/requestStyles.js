@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import { useFonts } from 'expo-font';
 const requestStyles = StyleSheet.create({
 
     container: {
@@ -39,10 +39,12 @@ const requestStyles = StyleSheet.create({
         color: '#6966FF',
         fontWeight: 'bold',
         left: '10%',
+        fontFamily:'Poppins',
     },
     req_About: {
         fontSize: 14,
         color: '#6966FF',
+        fontFamily:'Poppins',
 
     },
     input_container: {
@@ -66,6 +68,7 @@ const requestStyles = StyleSheet.create({
         marginVertical: 5,
         color: '#000000',
         fontSize: 18,
+        fontFamily:'Poppins',
 
     },
     desc_userInput: {
@@ -80,7 +83,8 @@ const requestStyles = StyleSheet.create({
         marginBottom: '5%',
         color: '#6966FF',
         fontSize: 18,
-        marginLeft: '1%'
+        marginLeft: '1%',
+        fontFamily:'Poppins'
     },
     fileButton: {
         alignItems: 'center',
@@ -107,6 +111,7 @@ const requestStyles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        fontFamily:'Poppins',
 
     }
 

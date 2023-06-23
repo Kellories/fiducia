@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { useFonts } from 'expo-font';
 
 
 const pledgeStyle = StyleSheet.create({
@@ -28,12 +28,14 @@ const pledgeStyle = StyleSheet.create({
         marginLeft:'6%',
         marginTop:'10%',
         marginBottom:'3%',
+        fontFamily:'Poppins'
     },
     loan:{
         fontSize:58,
         marginLeft:'6%',
         fontWeight:'500',
-        color:'#5351BD'
+        color:'#5351BD',
+        fontFamily:'Poppins'
     },
     proposalDescription:{
         marginLeft:'6%',
@@ -44,7 +46,8 @@ const pledgeStyle = StyleSheet.create({
         marginLeft:'6%',
         marginTop:'5%',
         fontSize:16,
-        fontWeight:'700'
+        fontWeight:'700',
+        fontFamily:'Poppins'
     }
 
 

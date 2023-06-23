@@ -1,8 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { useFonts } from 'expo-font';
 
 
 const globalStyles = StyleSheet.create({
-    
+
     container:{
         flex:1,
         backgroundColor:'white',

@@ -9,15 +9,18 @@ import AppTabs from './src/pages/AppTabs';
 import Request from './src/pages/Request';
 import LendStack from './src/pages/Lend';
 import HomeStack from './src/pages/Home';
+import { useFonts } from 'expo-font';
 
 const Stack = createNativeStackNavigator()
 
 const App = () =>{
+  const [fontsLoaded] = useFonts({
+    'Poppins': require('./assets/fonts/Poppins-Regular.ttf')
+  })
   return(
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-   
           <Stack.Screen name = "Login" component={Login} options={{headerShown : false}}/>
           <Stack.Screen name = "Home" component={HomeStack} options={{headerShown : false}}/>
           <Stack.Screen name = "AppTabs" component={AppTabs} options={{headerShown : false}}/>
