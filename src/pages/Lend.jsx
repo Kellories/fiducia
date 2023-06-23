@@ -48,7 +48,6 @@ const LendDescription = ({route,navigation}) => {
     const [pledgeAmount, setPledge] = useState('')
     const {id} = route.params
     const auth = getAuth()
-    let progress = 0
     useEffect(()=>{
         let currentLoan = 0
         const getData = async() => {
@@ -75,13 +74,13 @@ const LendDescription = ({route,navigation}) => {
         console.log(currentPledge/proposal.Loan)
 
     },[])
-
+    
    
     return(
         <SafeAreaView style = {globalStyles.container}>
 
             <ScrollView>
-            <Text style = {pledgeStyle.proposalTitle}>
+            <Text style = {pledgeStyle.proposalTitle}>``
                 {proposal.Title}
             </Text>
             <Text style = {pledgeStyle.loan}>
