@@ -48,8 +48,8 @@ const App = () =>{
           <Stack.Screen name = "Login" component={Login} options={{headerShown : false}}/>
           <Stack.Screen name = "Home" component={HomeStack} options={{headerShown : false}}/>
           <Stack.Screen name = "AppTabs" component={AppTabs} options={{headerShown : false}}/>
-          <Stack.Screen name='Request' component={Request} options={{ headerShown: true}} />
-          <Stack.Screen name='LendStack' component={LendStack} options={{ headerShown: true}} />
+          <Stack.Screen name='Request' component={Request} options={{ headerShown: false}} />
+          <Stack.Screen name='Loans' component={LendStack} options={{ headerShown: true}} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

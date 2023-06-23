@@ -14,7 +14,7 @@ const Home = ({navigation}) => {
                 <Text style={globalStyles.HomeNavTextHeader}>Fast Actions</Text>
                 <View style={globalStyles.HomeNavLayout}>
                     <HomeNavButton name = "Request" onPress={()=>{navigation.navigate("Request")}}/>
-                    <HomeNavButton name = "Lend" onPress={()=>{navigation.navigate("LendStack")}}/>
+                    <HomeNavButton name = "Lend" onPress={()=>{navigation.navigate("Loans")}}/>
                     <HomeNavButton name = "Repay" onPress={()=>{console.log('Repay btn pressed')}}/>
                 </View>
             </View>
