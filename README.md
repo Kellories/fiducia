@@ -19,7 +19,7 @@ When starting the app, you will be greeted with a login screen. You can create y
 
 After creating your account, go ahead and log in using that account.
 
-## Working features 
+## Currently working features
 - You can create a loan Proposal after pressing the "Request" button in the Home page. 
 	- You can also uploaded files such as a PDF or slideshow as part of your Proposal. 
 - You can pledge toward a loan in Loans > Pending and selecting a requested Loan. 
