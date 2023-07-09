@@ -11,27 +11,35 @@ import { getAuth } from 'firebase/auth'
 const db = require('../api/fireabaseConfig')
 const storage = getStorage()
 
-const Request = ({navigation}) => {
+const Request = ({ navigation }) => {
     const auth = getAuth()
 
-    const [name,setName ] = useState('')
-    const [proposalId,setProposalID] = useState('')
-    const [loan,setLoan] =useState('')
-    const [description,setDescription] = useState('')
-    const [title,setTitle] = useState('')
-    const [file,setFile] = useState()
-    const [fileName,setFileName] =useState()
-    const pickFile = async() => {
+    const [name, setName] = useState('')
+    const [proposalId, setProposalID] = useState('')
+    const [loan, setLoan] = useState('')
+    const [description, setDescription] = useState('')
+    const [title, setTitle] = useState('')
+    const [file, setFile] = useState()
+    const [fileName, setFileName] = useState()
+
+    // pickFile fn -> allows user to pick a file from their mobile device
+    const pickFile = async () => {
 
         const file = await DocumentPicker.getDocumentAsync()
+        // gets file object info
         console.log(file)
 
         if (file.type === 'cancel') {
             return;
         }
         try {
+
             const response = await fetch(file.uri)
+            // fetch file data from mobile device file path
+
             const blob = await response.blob()
+            // changes base64 string to blob type
+
             setFileName(file.name)
             return setFile(blob)
         } catch (err) {
@@ -41,19 +49,39 @@ const Request = ({navigation}) => {
     }
 
     const createProposal = async () => {
-        const proposalFileRef = ref(storage, `proposal/${proposalId}/${fileName}`)
+        let docRefarr = doc(db, 'LoanProposal', 'arr');
+        let arr = await getDoc(docRefarr);
+        arr = arr.data()
+        let newID = Math.max(arr) + 1;
+        let newArr = arr.push(newID);
+
+        let data = {
+            'proposalID': newArr
+        };
+        // const response = await deleteDoc(db,'LoanProposal','arr')
+        setDoc(docRefarr, data)
+            .then(() => {
+                alert("Request submitted");
+
+            })
+            .catch(() => {
+                alert("Could not submit request");
+            });
+               
+        const proposalPath = ref(storage, `proposal/${proposalId}/${fileName}`);
+
         if (file != undefined) {
             try {
-                const response = await uploadBytes(proposalFileRef, file)
-                console.log(response)
+                const response = await uploadBytes(proposalPath, file);
+                console.log(response);
             } catch (err) {
-                console.log(err)
+                alert("Could not upload file!");
+                console.log(err);
             }
-
         }
-        console.log(proposalId)
-        const docRef = doc(db, 'LoanProposal', proposalId)
-        const data = {
+
+        let docRef = doc(db, 'LoanProposal', proposalId);
+        data = {
             'Name': name,
             'Title': title,
             'Description': description,
@@ -77,7 +105,7 @@ const Request = ({navigation}) => {
     return (
 
         <SafeAreaView style={requestStyles.container}>
-            <BackButton onPress={() => {navigation.navigate('AppTabs')}} />
+            <BackButton onPress={() => { navigation.navigate('AppTabs') }} />
             <View style={requestStyles.req_container}>
                 <Text style={requestStyles.req_Title}>Loan Request</Text></View>
             <View style={requestStyles.formContainer}>
@@ -100,16 +128,6 @@ const Request = ({navigation}) => {
                             <TextInput
                                 placeholderTextColor="#6966FF"
                                 onChangeText={(e) => setTitle(e)}
-                            ></TextInput>
-                        </View>
-                    </View>
-                    <View style={requestStyles.input_container}>
-                        <Text style={requestStyles.userInputText}>Proposal ID</Text>
-                        <View style={requestStyles.userInput}>
-
-                            <TextInput
-                                placeholderTextColor="#6966FF"
-                                onChangeText={(e) => setProposalID(e)}
                             ></TextInput>
                         </View>
                     </View>
