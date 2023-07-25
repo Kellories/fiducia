@@ -113,12 +113,12 @@ const Request = ({ navigation }) => {
     }
 
     return (
-
-        <SafeAreaView style={requestStyles.container}>
-            <BackButton onPress={() => { navigation.navigate('AppTabs') }} />
+        <KeyboardAvoidingView style={requestStyles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <ScrollView style={requestStyles.formContainer}>
             <View style={requestStyles.req_container}>
+                <BackButton onPress={() => { navigation.navigate('AppTabs') }} />
                 <Text style={requestStyles.req_Title}>Loan Request</Text></View>
-            <View style={requestStyles.formContainer}>
 
                 <View style={requestStyles.form_Container}>
                     <Text style={requestStyles.req_About}>Fill in the fields with information about your loan proposal</Text>
@@ -157,8 +157,9 @@ const Request = ({ navigation }) => {
                     <View style={requestStyles.input_container}>
                         <Text style={requestStyles.userInputText}>Description</Text>
                         <View style={requestStyles.desc_userInput}>
-
+                            
                             <TextInput
+                                multiline
                                 placeholderTextColor="#6966FF"
                                 onChangeText={(e) => setDescription(e)}>
                             </TextInput>
@@ -184,8 +185,8 @@ const Request = ({ navigation }) => {
 
                 </View>
 
-            </View>
-        </SafeAreaView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 
 }

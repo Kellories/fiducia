@@ -5,19 +5,18 @@ const requestStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        padding: 8,
-        margin: 'auto'
+        paddingTop:'20%'
     },
-
+    req_container:{
+        flex:1,
+        flexDirection:'row',
+        marginLeft:'5%'
+    },
     formContainer: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignContent: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        width: Dimensions.get('window').width
+
     },
     form_Container: {
+        flex:1,
         alignSelf: 'center',
         justifyContent: 'space-evenly',
         alignItems: 'center',
@@ -25,26 +24,21 @@ const requestStyles = StyleSheet.create({
         width: '100%',
         marginTop: '10%',
         height: '90%',
-        borderRadius: 20,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOpacity: 1.8,
-        shadowRadius: 15,
-        shadowOffset: { width: 1, height: 13 },
-
-
     },
     req_Title: {
         fontSize: 35,
-        marginLeft: '1%',
         color: '#6966FF',
         fontWeight: 'bold',
-        left: '10%',
         fontFamily:'Poppins',
+        marginLeft:'5%',
+        marginTop:'3%'
     },
     req_About: {
+        flex:1,
         fontSize: 14,
         color: '#6966FF',
         fontFamily:'Poppins',
+        padding:'2%'
 
     },
     input_container: {
@@ -54,15 +48,16 @@ const requestStyles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'column',
         paddingLeft: '15%',
+        paddingRight: '15%',
         width: Dimensions.get('window').width,
 
     },
     userInput: {
-        width: '80%',
+        width: '100%',
         textAlignVertical: 'center',
-        height: '30%',
+        paddingVertical:'3%',
         backgroundColor: '#D9D9D9',
-        borderRadius: '20%'
+
     },
     userInputText: {
         marginVertical: 5,
@@ -73,23 +68,22 @@ const requestStyles = StyleSheet.create({
     },
     desc_userInput: {
         backgroundColor: '#E1E1E1',
-        borderRadius: '20%',
-        marginBottom: '5%',
-        width: '80%',
-        height: '60%',
+        paddingVertical:'3%'
+
 
     },
     fileText: {
-        marginBottom: '5%',
+        marginTop:'3%',
         color: '#6966FF',
         fontSize: 18,
         marginLeft: '1%',
         fontFamily:'Poppins'
     },
     fileButton: {
+        marginVertical:'3%',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '7%',
+        height: '10%',
         width: "60%",
         backgroundColor: '#E1E1E1',
         borderRadius: 25,
@@ -97,8 +91,8 @@ const requestStyles = StyleSheet.create({
     submitButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '7%',
-        width: "40%",
+        height: '10%',
+        width: "60%",
         backgroundColor: '#6966FF',
         borderRadius: 25,
         shadowColor: '#6966FF',
