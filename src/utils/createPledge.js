@@ -59,7 +59,7 @@ const CreatePledge = async(id,uid) => {
                     console.log(response.json())
                     try{
                         await deleteDoc(docRef)
-                        alert("Pledged!")
+                       return alert("Pledged!")
                     }catch(err){
                         console.log(err)
                     }

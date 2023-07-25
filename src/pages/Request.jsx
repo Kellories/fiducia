@@ -49,27 +49,19 @@ const Request = ({ navigation }) => {
     }
 
     const createProposal = async () => {
-        let docRefarr = doc(db, 'LoanProposal', 'arr');
+        const auth = getAuth()
+        let docRefarr = doc(db, 'proposalArr', 'zEMcqrz8VJJWVdgLuDLS');
         let arr = await getDoc(docRefarr);
         arr = arr.data()
-        let newID = Math.max(arr) + 1;
-        let newArr = arr.push(newID);
+        console.log(arr)
+        console.log(Math.max(...arr.proposalID))
+        let newID = Math.max(...arr.proposalID) + 1;
+        console.log(newID)
+        arr.proposalID.push(newID);
 
-        let data = {
-            'proposalID': newArr
-        };
-        // const response = await deleteDoc(db,'LoanProposal','arr')
-        setDoc(docRefarr, data)
-            .then(() => {
-                alert("Request submitted");
 
-            })
-            .catch(() => {
-                alert("Could not submit request");
-            });
-               
-        const proposalPath = ref(storage, `proposal/${proposalId}/${fileName}`);
 
+        const proposalPath = ref(storage, `proposal/${newID}/${fileName}`);
         if (file != undefined) {
             try {
                 const response = await uploadBytes(proposalPath, file);
@@ -79,24 +71,42 @@ const Request = ({ navigation }) => {
                 console.log(err);
             }
         }
+        
+            let data = {
+                'proposalID': arr.proposalID
+            };
+            setDoc(docRefarr, data)
+                .then(() => {
+                    
+                console.log('added to arr')
 
-        let docRef = doc(db, 'LoanProposal', proposalId);
-        data = {
-            'Name': name,
-            'Title': title,
-            'Description': description,
-            'Loan': loan,
-            'UID': auth.currentUser.uid
-        }
-        console.log(data)
-        setDoc(docRef, data)
-            .then(() => {
-                alert("Proposal Submitted!")
-            })
-            .catch(() => {
-                console.log(err)
-                alert("Could not submit Proposal!")
-            })
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+               
+
+                const dataBody = {
+                    'Name': name,
+                    'Title': title,
+                    'Description': description,
+                    'Loan': loan,
+                    'UID': auth.currentUser.uid
+                }
+                console.log(dataBody)
+            
+
+                    setDoc(doc(db,'LoanProposal',newID.toString()), dataBody)
+                    .then(() => {
+                        console.log('where')
+                        alert("Proposal Submitted!")
+                    })
+                    .catch((err) => {
+                        console.log('there')
+                        console.log(err)
+                        alert("Could not submit Proposal!")
+                    })
+    
 
 
 
